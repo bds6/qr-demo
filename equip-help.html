@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Equipment Help</title></head>
+<body>
+  <h1>Equipment Help Demo</h1>
+
+  <!-- Social Intents embed -->
+  <script src="https://app.socialintents.com/widget.js?d=2c9fa6c3935c3be101936e2befb5108b"></script>
+
+  <!-- QR-parameter helper -->
+  <script>
+    function onSIApiReady () {
+      const qs = new URLSearchParams(location.search);
+      const room  = qs.get('room')  || 'Unknown Room';
+      const asset = qs.get('asset') || 'Unknown Asset';
+
+      SI_API.addParams([
+        {name:'Room',  value: room},
+        {name:'Asset', value: asset}
+      ]);
+      SI_API.setChatInfo(null, null, null, 'Studio-Gear',
+         `Hi! I’m in ${room} and need help with the ${asset}.`);
+      SI_API.showPopup();
+    }
+  </script>
+</body>
+</html>
