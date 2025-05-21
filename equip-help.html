@@ -6,28 +6,34 @@
 
   <!-- ①  define onSIApiReady FIRST -->
   <script>
-    function onSIApiReady () {
-      const qs    = new URLSearchParams(location.search);
-      const room  = qs.get('room')  || 'Unknown Room';
-      const asset = qs.get('asset') || 'Unknown Asset';
-
-      SI_API.addParams([
-        {name:'Room',  value: room},
-        {name:'Asset', value: asset}
-      ]);
-
-      SI_API.setChatInfo(
-        null, null, null,          // name/email/etc. untouched
-        'Studio-Gear',             // route group
-        `Hi! I’m in ${room} and need help with the ${asset}.`
-      );
-
-      SI_API.showPopup();          // open immediately
-
-      if (typeof SI_API.startChat === 'function') {
-        SI_API.startChat();      // auto-clicks "Start Conversation"
-      }
+  function onSIApiReady () {
+    const qs    = new URLSearchParams(location.search);
+    const room  = qs.get('room')  || 'Unknown Room';
+    const asset = qs.get('asset') || 'Unknown Asset';
+  
+    // 1 – tag the chat so the bot sees the tokens
+    SI_API.addParams([
+      {name:'Room',  value: room},
+      {name:'Asset', value: asset}
+    ]);
+  
+    // 2 – route and pre-fill metadata (optional)
+    SI_API.setChatInfo('QR Visitor', '', null, 'Studio-Gear',
+                       `Hi! I’m in ${room} and need help with the ${asset}.`);
+  
+    // 3 – open the widget
+    SI_API.showPopup();
+  
+    // 4 – start the chat session immediately
+    if (typeof SI_API.startChat === 'function') {
+      SI_API.startChat();
     }
+  
+    // 5 – send the first message so ChatGPT replies
+    if (typeof SI_API.sendMessage === 'function') {
+      SI_API.sendMessage(`Hi! I’m in ${room} and need help with the ${asset}.`);
+    }
+  }
   </script>
 
   <!-- ②  then load the widget (async/defer is fine) -->
