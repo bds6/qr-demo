@@ -23,6 +23,10 @@
       );
 
       SI_API.showPopup();          // open immediately
+
+      if (typeof SI_API.startChat === 'function') {
+        SI_API.startChat();      // auto-clicks "Start Conversation"
+      }
     }
   </script>
 
