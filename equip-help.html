@@ -1,42 +1,386 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><title>Equipment Help</title></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Scan-to-start equipment guidance from the CLIve QR Assistant.">
+  <title>Equipment QR Assistant | Media Commons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto+Slab:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mc-blue: #1e407c;
+      --mc-link: #176fbb;
+      --mc-dark: #262c3a;
+      --mc-pale: #eef5fa;
+      --mc-gray: #f2f2f2;
+      --mc-border: #d5d9de;
+      --text: #141414;
+      --muted: #525a64;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { color: var(--text); font-family: "Open Sans", Arial, sans-serif; font-size: 16px; line-height: 1.65; margin: 0; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #ffbf3f; outline-offset: 3px; }
+    .utility-bar { background: #176fbb; color: var(--white); font-size: 13px; }
+    .utility-inner { display: flex; gap: 24px; margin: auto; max-width: 1140px; padding: 4px 24px; }
+    .utility-inner a { font-weight: 600; }
+    .site-header { background: var(--mc-dark); color: var(--white); }
+    .header-inner { align-items: center; display: flex; gap: 34px; justify-content: space-between; margin: auto; max-width: 1200px; min-height: 112px; padding: 18px 24px; }
+    .site-logo img { display: block; height: auto; max-width: 194px; width: 100%; }
+    .primary-nav { align-items: center; display: flex; flex-wrap: wrap; gap: 27px; justify-content: flex-end; }
+    .primary-nav a { font-size: 14px; text-decoration: underline; text-underline-offset: 2px; }
+    .page-title { background: var(--white); border-bottom: 1px solid #ededed; }
+    .page-title-inner { margin: auto; max-width: 1080px; padding: 40px 24px 30px; }
+    h1, h2, h3 { font-family: "Roboto Slab", Georgia, serif; line-height: 1.25; margin-top: 0; }
+    h1 { font-size: clamp(32px, 5vw, 46px); margin-bottom: 10px; }
+    h2 { font-size: clamp(25px, 3.2vw, 31px); margin-bottom: 16px; }
+    h3 { font-size: 20px; margin-bottom: 9px; }
+    .breadcrumbs { color: #68717b; font-size: 13px; margin: 0 0 12px; }
+    .breadcrumbs a { color: var(--mc-link); }
+    .page-title p:last-child { color: var(--muted); font-size: 18px; margin: 0; max-width: 760px; }
+    main { margin: auto; max-width: 1080px; padding: 44px 24px 72px; }
+    .context-strip {
+      align-items: center;
+      background: var(--mc-pale);
+      border-left: 6px solid var(--mc-blue);
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      padding: 20px 24px;
+    }
+    .context-strip p { margin: 0; }
+    .context-identity { align-items: center; display: flex; gap: 16px; min-width: 0; }
+    .equipment-icon { align-items: center; background: var(--white); border: 1px solid #c8d8e6; border-radius: 50%; color: var(--mc-blue); display: flex; flex: 0 0 58px; height: 58px; justify-content: center; width: 58px; }
+    .equipment-icon svg { height: 34px; width: 34px; }
+    .context-label { color: var(--mc-blue); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .context-equipment { font-family: "Roboto Slab", Georgia, serif; font-size: 20px; font-weight: 600; }
+    .context-meta { color: var(--muted); font-size: 14px; text-align: right; }
+    .person-link { color: var(--mc-link); display: inline-block; font-size: 13px; font-weight: 700; margin-top: 3px; }
+    .status-card { background: var(--mc-gray); border: 1px solid var(--mc-border); border-top: 5px solid var(--mc-blue); margin-bottom: 30px; padding: 18px 24px; text-align: center; }
+    .chat-kicker { color: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: .04em; margin: 0 0 8px; text-transform: uppercase; }
+    .status-message { align-items: flex-start; display: flex; font-size: 14px; gap: 10px; justify-content: center; margin: 18px 0 0; }
+    .status-dot { background: #db9d00; border-radius: 50%; flex: 0 0 auto; height: 10px; margin-top: 7px; width: 10px; }
+    .status-message.connected .status-dot { background: #16845b; }
+    .chat-button {
+      background: var(--mc-blue);
+      border: 2px solid var(--mc-blue);
+      color: var(--white);
+      cursor: pointer;
+      font-family: "Open Sans", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      min-height: 58px;
+      padding: 14px 22px;
+      width: 100%;
+    }
+    .chat-button:hover { background: #173461; }
+    .accordion { border: 1px solid var(--mc-border); margin-top: 24px; }
+    .accordion summary { align-items: center; color: var(--mc-blue); cursor: pointer; display: flex; font-family: "Roboto Slab", Georgia, serif; font-size: 21px; font-weight: 700; justify-content: space-between; list-style: none; padding: 19px 22px; }
+    .accordion summary::-webkit-details-marker { display: none; }
+    .accordion summary::after { content: "+"; font-family: "Open Sans", Arial, sans-serif; font-size: 28px; font-weight: 400; line-height: 1; }
+    .accordion[open] summary::after { content: "−"; }
+    .accordion[open] summary { border-bottom: 1px solid var(--mc-border); }
+    .accordion-content { padding: 22px; }
+    .accordion-content > :first-child { margin-top: 0; }
+    .accordion-content > :last-child { margin-bottom: 0; }
+    .compact-steps { margin: 22px 0 0; padding-left: 26px; }
+    .compact-steps li { margin-bottom: 12px; padding-left: 5px; }
+    .compact-steps li:last-child { margin-bottom: 0; }
+    .compact-steps strong { color: var(--mc-blue); }
+    .example-section { background: #f8f8f8; margin-top: 30px; padding: 36px; }
+    .question-buttons { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+    .question-button { background: var(--white); border: 2px solid var(--mc-blue); color: var(--mc-blue); cursor: pointer; font-family: "Open Sans", Arial, sans-serif; font-size: 15px; font-weight: 700; min-height: 52px; padding: 11px 15px; text-align: left; }
+    .question-button:hover { background: var(--mc-blue); color: var(--white); }
+    .help-section { border: 2px solid var(--mc-blue); display: grid; gap: 36px; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); margin-top: 52px; padding: 34px; }
+    #human-help-heading { scroll-margin-top: 24px; }
+    .help-section p { color: var(--muted); margin-bottom: 0; }
+    .help-links { display: flex; flex-direction: column; justify-content: center; }
+    .help-links a { border-bottom: 1px solid #c7ced7; color: var(--mc-link); font-weight: 700; padding: 9px 0; }
+    .notice { color: #606873; font-size: 13px; margin: 28px 0 0; }
+    .site-footer { background: var(--mc-blue); color: var(--white); }
+    .footer-main { display: grid; gap: 42px; grid-template-columns: 1.2fr repeat(3, 1fr); margin: auto; max-width: 1200px; padding: 52px 24px 42px; }
+    .footer-logo { max-width: 210px; }
+    .footer-logo img { display: block; height: auto; max-width: 190px; width: 100%; }
+    .footer-main h2 { color: var(--white); font-family: "Open Sans", Arial, sans-serif; font-size: 17px; margin-bottom: 12px; }
+    .footer-main ul { list-style: none; margin: 0; padding: 0; }
+    .footer-main li { margin: 6px 0; }
+    .footer-main a { font-size: 13px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.32); font-size: 11px; margin: auto; max-width: 1200px; padding: 18px 24px 28px; }
+    .footer-bottom p { margin: 5px 0; }
+    @media (max-width: 850px) {
+      .header-inner { align-items: flex-start; min-height: auto; }
+      .primary-nav { display: none; }
+      .help-section { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .utility-inner { gap: 12px; justify-content: space-between; }
+      .utility-inner a { font-size: 11px; }
+      .header-inner { min-height: 92px; }
+      .site-logo img { max-width: 175px; }
+      .page-title-inner { padding-top: 30px; }
+      main { padding-top: 32px; }
+      .context-strip { align-items: flex-start; flex-direction: column; margin-bottom: 28px; }
+      .context-meta { padding-left: 74px; text-align: left; }
+      .status-card { margin-left: -8px; margin-right: -8px; padding: 16px 18px; }
+      .example-section, .help-section { margin-left: -24px; margin-right: -24px; padding: 27px 24px; }
+      .question-buttons { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
 <body>
-  <h1>Equipment Help Demo</h1>
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <a href="tel:18662667496">☎ 866-266-7496</a>
+      <a href="mailto:mediacommons@psu.edu">✉ mediacommons@psu.edu</a>
+    </div>
+  </div>
 
-  <!-- ①  define onSIApiReady FIRST -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="https://mediacommons.psu.edu/" aria-label="Media Commons home">
+        <img src="https://tlt.psu.edu/mediacommons/files/2019/06/tltlogo.png" alt="Penn State Teaching and Learning with Technology">
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="https://mediacommons.psu.edu/">Home</a>
+        <a href="https://mediacommons.psu.edu/about/">About</a>
+        <a href="https://mediacommons.psu.edu/locations/">Locations</a>
+        <a href="https://mediacommons.psu.edu/faculty/">Faculty + Staff</a>
+        <a href="https://mediacommons.psu.edu/free-media-library/">Free Media Library</a>
+        <a href="https://mediacommons.psu.edu/technology-catalog/">Tech Catalog</a>
+        <a href="https://mediacommons.psu.edu/support/">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-title">
+    <div class="page-title-inner">
+      <p class="breadcrumbs"><a href="https://mediacommons.psu.edu/">Home</a> / Equipment QR Assistant</p>
+      <h1>Equipment QR Assistant</h1>
+      <p>Get immediate, equipment-specific guidance from CLIve, the Media Commons virtual assistant.</p>
+    </div>
+  </section>
+
+  <main id="main-content">
+    <section class="context-strip" aria-label="Equipment identified by QR code">
+      <div class="context-identity">
+        <span class="equipment-icon" role="img" aria-label="Camera">
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M17 10.5h14l3.2 5.5H39a5 5 0 0 1 5 5v16a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V21a5 5 0 0 1 5-5h4.8l3.2-5.5Zm7 8.5a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm13-3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+          </svg>
+        </span>
+        <div>
+          <p class="context-label">This QR code identifies</p>
+          <p class="context-equipment" id="equipment-name">Canon EOS R6 Mark II</p>
+        </div>
+      </div>
+      <div class="context-meta">
+        <p id="equipment-room">Shields Photo Studio</p>
+        <a class="person-link" href="#human-help-heading">Need a person instead?</a>
+      </div>
+    </section>
+
+    <aside class="status-card" aria-label="Chat controls">
+      <p class="chat-kicker">Chat opens automatically</p>
+      <button class="chat-button" id="open-assistant" type="button">Open or return to chat</button>
+      <p class="status-message" id="connection-status" role="status"><span class="status-dot" aria-hidden="true"></span><strong id="status-text">Connecting to CLIve…</strong></p>
+    </aside>
+
+    <section class="example-section" aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Questions you can ask</h2>
+      <div class="question-buttons">
+        <button class="question-button" type="button">How do I set this equipment up?</button>
+        <button class="question-button" type="button">What do these controls do?</button>
+        <button class="question-button" type="button">Which setting should I use?</button>
+        <button class="question-button" type="button">Why is this not working?</button>
+        <button class="question-button" type="button">How should I reset it when finished?</button>
+        <button class="question-button" type="button">Can I speak with a consultant?</button>
+      </div>
+    </section>
+
+    <details class="accordion">
+      <summary>About CLIve</summary>
+      <div class="accordion-content">
+        <p>CLIve has been trained on documentation for equipment available in selected Creative Learning Initiatives spaces. Ask about setup, controls, recommended settings, troubleshooting, or what to do when you finish.</p>
+        <p>The assistant uses the information encoded in the QR code to begin with the correct equipment. You can continue by typing follow-up questions in your own words.</p>
+        <ol class="compact-steps">
+          <li><strong>Review the first response.</strong> CLIve starts with a general introduction to the equipment identified by the QR code.</li>
+          <li><strong>Ask a specific question.</strong> Describe what you are trying to accomplish or what is not working. Short, direct questions work well.</li>
+          <li><strong>Request a consultant.</strong> If the assistant cannot resolve the issue, ask to speak with a Media Commons consultant. Availability depends on staffing.</li>
+        </ol>
+      </div>
+    </details>
+
+    <section class="help-section" aria-labelledby="human-help-heading">
+      <div>
+        <h2 id="human-help-heading">Need more help?</h2>
+        <p>Ask CLIve to connect you with a person, contact Media Commons directly, or schedule an appointment for more involved assistance.</p>
+      </div>
+      <div class="help-links">
+        <a href="tel:18662667496">Call 866-266-7496</a>
+        <a href="mailto:mediacommons@psu.edu">Email Media Commons</a>
+        <a href="https://mediacommons.psu.edu/self-scheduling-by-room/">Request an appointment</a>
+        <a href="https://mediacommons.psu.edu/support/">View all support options</a>
+      </div>
+    </section>
+
+    <p class="notice">CLIve is an AI assistant and may make mistakes. Verify critical equipment setup or safety information with a Media Commons consultant.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-logo">
+        <img src="https://mediacommons.psu.edu/files/2025/12/PSU_LIB_CMYK_REV_2C-1-1.png" alt="Penn State University Libraries">
+      </div>
+      <div>
+        <h2>Media Commons</h2>
+        <ul>
+          <li><a href="https://mediacommons.psu.edu/about/">About</a></li>
+          <li><a href="https://mediacommons.psu.edu/locations/">Locations</a></li>
+          <li><a href="https://mediacommons.psu.edu/technology-catalog/">Tech Catalog</a></li>
+          <li><a href="https://mediacommons.psu.edu/support/">Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Services</h2>
+        <ul>
+          <li><a href="https://libraries.psu.edu/services/borrow-renew">Borrow &amp; Renew</a></li>
+          <li><a href="https://libraries.psu.edu/services/rooms-spaces">Rooms &amp; Spaces</a></li>
+          <li><a href="https://libraries.psu.edu/services/technology-equipment">Tech &amp; Equipment</a></li>
+          <li><a href="https://libraries.psu.edu/services/teaching-and-learning">Teaching Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Get help</h2>
+        <ul>
+          <li><a href="mailto:mediacommons@psu.edu">By email</a></li>
+          <li><a href="tel:18662667496">By phone</a></li>
+          <li><a href="https://mediacommons.psu.edu/self-scheduling-by-room/">Schedule an appointment</a></li>
+          <li><a href="https://www.psu.edu/accessibilitystatement">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright © 2026 The Pennsylvania State University. All rights reserved.</p>
+      <p><a href="https://www.psu.edu/web-privacy-statement">Privacy statements</a> · <a href="https://www.psu.edu/legal-statements">Legal statements</a></p>
+    </div>
+  </footer>
+
   <script>
-  function onSIApiReady () {
-    const qs    = new URLSearchParams(location.search);
-    const room  = qs.get('room')  || 'Unknown Room';
-    const asset = qs.get('asset') || 'Unknown Asset';
-  
-    // 1 – tag the chat so the bot sees the tokens
-    SI_API.addParams([
-      {name:'Room',  value: room},
-      {name:'Asset', value: asset}
-    ]);
-  
-    // 2 – route and pre-fill metadata (optional)
-    SI_API.setChatInfo('QR Visitor', '', null, 'Studio-Gear',
-                       `Hi! I’m in ${room} and need help with the ${asset}.`);
-  
-    // 3 – open the widget
-    SI_API.showPopup();
-  
-    // 4 – start the chat session immediately
-    if (typeof SI_API.startChat === 'function') {
-      SI_API.startChat();
-    }
-  
-    // 5 – send the first message so ChatGPT replies
-    if (typeof SI_API.sendMessage === 'function') {
-      SI_API.sendMessage(`Hi! I’m in ${room} and need help with the ${asset}.`);
-    }
-  }
-  </script>
+    (function () {
+      "use strict";
 
-  <!-- ②  then load the widget (async/defer is fine) -->
-  <script src="https://www.socialintents.com/api/chat/socialintents.1.4.js#2c9fa6c396f04ed90196f3ef06ce04f4" async="async"></script>
+      var WIDGET_ID = "2c9fa6c396f04ed90196f3ef06ce04f4";
+      var STANDALONE_CHAT = "https://chat.socialintents.com/c/cliveqrbot";
+      var params = new URLSearchParams(window.location.search);
+      var initialized = false;
+      var pendingQuestion = "";
+
+      function clean(value, fallback, maxLength) {
+        if (!value) return fallback;
+        var cleaned = value
+          .replace(/[\u0000-\u001F\u007F]/g, "")
+          .replace(/[<>]/g, "")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, maxLength);
+        return cleaned || fallback;
+      }
+
+      var equipment = {
+        asset: clean(params.get("asset"), "Canon EOS R6 Mark II", 100),
+        room: clean(params.get("room"), "Shields Photo Studio", 100),
+        id: clean(params.get("id"), "prototype-001", 48)
+      };
+      var openingQuestion = "Help me get started with the " + equipment.asset + ".";
+
+      document.getElementById("equipment-name").textContent = equipment.asset;
+      document.getElementById("equipment-room").textContent = equipment.room;
+
+      function setStatus(message, connected) {
+        document.getElementById("status-text").textContent = message;
+        document.getElementById("connection-status").classList.toggle("connected", Boolean(connected));
+      }
+
+      function openAssistant() {
+        if (window.SI_API && typeof window.SI_API.showPopup === "function") {
+          window.SI_API.showPopup();
+        } else {
+          window.open(STANDALONE_CHAT, "_blank", "noopener,noreferrer");
+        }
+      }
+
+      document.getElementById("open-assistant").addEventListener("click", openAssistant);
+
+      function sendQuestion(question) {
+        if (window.SI_API && typeof window.SI_API.sendMessage === "function") {
+          if (typeof window.SI_API.showPopup === "function") window.SI_API.showPopup();
+          window.SI_API.sendMessage(question);
+          setStatus("Your question was sent to CLIve.", true);
+          return;
+        }
+        pendingQuestion = question;
+        setStatus("Connecting to CLIve—your question will send when the chat is ready.", false);
+      }
+
+      document.querySelectorAll(".question-button").forEach(function (button) {
+        button.addEventListener("click", function () {
+          sendQuestion(button.textContent.trim());
+        });
+      });
+
+      window.onSIApiReady = function () {
+        if (initialized || !window.SI_API) return;
+        initialized = true;
+
+        if (typeof window.SI_API.addParams === "function") {
+          window.SI_API.addParams([
+            { name: "Equipment ID", value: equipment.id },
+            { name: "Asset", value: equipment.asset },
+            { name: "Room", value: equipment.room },
+            { name: "Entry Point", value: "Equipment QR code" }
+          ]);
+        }
+        if (typeof window.SI_API.setChatInfo === "function") {
+          window.SI_API.setChatInfo("QR Visitor", "", null, "", "");
+        }
+        if (typeof window.SI_API.startChat === "function") window.SI_API.startChat();
+        if (typeof window.SI_API.showPopup === "function") window.SI_API.showPopup();
+
+        var sentKey = "clive-opening:" + equipment.id;
+        window.setTimeout(function () {
+          if (!sessionStorage.getItem(sentKey) && typeof window.SI_API.sendMessage === "function") {
+            window.SI_API.sendMessage(pendingQuestion || openingQuestion);
+            sessionStorage.setItem(sentKey, "sent");
+            pendingQuestion = "";
+          } else if (pendingQuestion && typeof window.SI_API.sendMessage === "function") {
+            window.SI_API.sendMessage(pendingQuestion);
+            pendingQuestion = "";
+          }
+          if (typeof window.SI_API.showPopup === "function") window.SI_API.showPopup();
+          setStatus("CLIve is ready. Continue in the open chat window.", true);
+        }, 750);
+      };
+
+      var script = document.createElement("script");
+      script.src = "https://chat.socialintents.com/api/chat/socialintents.1.5.js#" + WIDGET_ID;
+      script.async = true;
+      script.onerror = function () {
+        setStatus("CLIve could not load. Use the button to open chat manually.", false);
+      };
+      document.body.appendChild(script);
+
+      window.setTimeout(function () {
+        if (!initialized) setStatus("CLIve is taking longer than expected to connect.", false);
+      }, 9000);
+    }());
+  </script>
 </body>
 </html>
