@@ -324,6 +324,9 @@
       function sendQuestion(question) {
         if (siApi && typeof siApi.sendMessage === "function") {
           if (typeof siApi.showPopup === "function") siApi.showPopup();
+          if (!sessionStorage.getItem(sentKey)) {
+            sessionStorage.setItem(sentKey, "sent");
+          }
           siApi.sendMessage(question);
           setStatus("Your question was sent to CLIve.", true);
           return;
@@ -343,8 +346,14 @@
         initialized = true;
         siApi = window.SI_API;
 
-        var firstQuestion = pendingQuestion || openingQuestion;
-        var shouldSendOpening = !sessionStorage.getItem(sentKey);
+        function dispatchOpeningQuestion() {
+          if (sessionStorage.getItem(sentKey) || typeof siApi.sendMessage !== "function") return;
+          var firstQuestion = pendingQuestion || openingQuestion;
+          siApi.sendMessage(firstQuestion);
+          sessionStorage.setItem(sentKey, "sent");
+          pendingQuestion = "";
+          setStatus("CLIve is ready. Continue in the open chat window.", true);
+        }
 
         if (typeof siApi.addParams === "function") {
           siApi.addParams([
@@ -356,26 +365,20 @@
         }
         if (typeof siApi.setChatInfo === "function") {
           siApi.setChatInfo(
-            "QR Visitor",
+            "Visitor",
             "",
             null,
-            "Studio-Gear",
-            shouldSendOpening ? firstQuestion : ""
+            "",
+            ""
           );
         }
+        siApi.onChatOpened = function () {
+          window.setTimeout(dispatchOpeningQuestion, 350);
+        };
         if (typeof siApi.showPopup === "function") siApi.showPopup();
         if (typeof siApi.startChat === "function") siApi.startChat();
-
-        if (shouldSendOpening && typeof siApi.sendMessage === "function") {
-          siApi.sendMessage(firstQuestion);
-          sessionStorage.setItem(sentKey, "sent");
-          pendingQuestion = "";
-        } else if (pendingQuestion && typeof siApi.sendMessage === "function") {
-          siApi.sendMessage(pendingQuestion);
-          pendingQuestion = "";
-        }
-
-        setStatus("CLIve is ready. Continue in the open chat window.", true);
+        window.setTimeout(dispatchOpeningQuestion, 800);
+        setStatus("CLIve is open. Sending the equipment question…", false);
       };
 
       var socialintents = window.socialintents = window.socialintents || [];
@@ -397,10 +400,8 @@
         app_id: WIDGET_ID,
         alignment: "right",
         horizontal_padding: "25px",
-        name: "QR Visitor",
+        name: "Visitor",
         email: "",
-        group: "Studio-Gear",
-        question: sessionStorage.getItem(sentKey) ? "" : openingQuestion,
         custom1: equipment.asset,
         custom2: equipment.room,
         custom3: equipment.id
