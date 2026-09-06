@@ -282,6 +282,7 @@
       var params = new URLSearchParams(window.location.search);
       var initialized = false;
       var pendingQuestion = "";
+      var siApi = null;
 
       function clean(value, fallback, maxLength) {
         if (!value) return fallback;
@@ -310,8 +311,8 @@
       }
 
       function openAssistant() {
-        if (window.SI_API && typeof window.SI_API.showPopup === "function") {
-          window.SI_API.showPopup();
+        if (siApi && typeof siApi.showPopup === "function") {
+          siApi.showPopup();
         } else {
           window.open(STANDALONE_CHAT, "_blank", "noopener,noreferrer");
         }
@@ -320,9 +321,9 @@
       document.getElementById("open-assistant").addEventListener("click", openAssistant);
 
       function sendQuestion(question) {
-        if (window.SI_API && typeof window.SI_API.sendMessage === "function") {
-          if (typeof window.SI_API.showPopup === "function") window.SI_API.showPopup();
-          window.SI_API.sendMessage(question);
+        if (siApi && typeof siApi.sendMessage === "function") {
+          if (typeof siApi.showPopup === "function") siApi.showPopup();
+          siApi.sendMessage(question);
           setStatus("Your question was sent to CLIve.", true);
           return;
         }
@@ -339,34 +340,42 @@
       window.onSIApiReady = function () {
         if (initialized || !window.SI_API) return;
         initialized = true;
+        siApi = window.SI_API;
 
-        if (typeof window.SI_API.addParams === "function") {
-          window.SI_API.addParams([
+        var sentKey = "clive-opening:" + equipment.id;
+        var firstQuestion = pendingQuestion || openingQuestion;
+        var shouldSendOpening = !sessionStorage.getItem(sentKey);
+
+        if (typeof siApi.addParams === "function") {
+          siApi.addParams([
             { name: "Equipment ID", value: equipment.id },
             { name: "Asset", value: equipment.asset },
             { name: "Room", value: equipment.room },
             { name: "Entry Point", value: "Equipment QR code" }
           ]);
         }
-        if (typeof window.SI_API.setChatInfo === "function") {
-          window.SI_API.setChatInfo("QR Visitor", "", null, "", "");
+        if (typeof siApi.setChatInfo === "function") {
+          siApi.setChatInfo(
+            "QR Visitor",
+            "",
+            null,
+            "Studio-Gear",
+            shouldSendOpening ? firstQuestion : ""
+          );
         }
-        if (typeof window.SI_API.startChat === "function") window.SI_API.startChat();
-        if (typeof window.SI_API.showPopup === "function") window.SI_API.showPopup();
+        if (typeof siApi.showPopup === "function") siApi.showPopup();
+        if (typeof siApi.startChat === "function") siApi.startChat();
 
-        var sentKey = "clive-opening:" + equipment.id;
-        window.setTimeout(function () {
-          if (!sessionStorage.getItem(sentKey) && typeof window.SI_API.sendMessage === "function") {
-            window.SI_API.sendMessage(pendingQuestion || openingQuestion);
-            sessionStorage.setItem(sentKey, "sent");
-            pendingQuestion = "";
-          } else if (pendingQuestion && typeof window.SI_API.sendMessage === "function") {
-            window.SI_API.sendMessage(pendingQuestion);
-            pendingQuestion = "";
-          }
-          if (typeof window.SI_API.showPopup === "function") window.SI_API.showPopup();
-          setStatus("CLIve is ready. Continue in the open chat window.", true);
-        }, 750);
+        if (shouldSendOpening && typeof siApi.sendMessage === "function") {
+          siApi.sendMessage(firstQuestion);
+          sessionStorage.setItem(sentKey, "sent");
+          pendingQuestion = "";
+        } else if (pendingQuestion && typeof siApi.sendMessage === "function") {
+          siApi.sendMessage(pendingQuestion);
+          pendingQuestion = "";
+        }
+
+        setStatus("CLIve is ready. Continue in the open chat window.", true);
       };
 
       var script = document.createElement("script");
