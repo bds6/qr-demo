@@ -301,6 +301,7 @@
         id: clean(params.get("id"), "prototype-001", 48)
       };
       var openingQuestion = "Help me get started with the " + equipment.asset + ".";
+      var sentKey = "clive-opening:" + equipment.id;
 
       document.getElementById("equipment-name").textContent = equipment.asset;
       document.getElementById("equipment-room").textContent = equipment.room;
@@ -342,7 +343,6 @@
         initialized = true;
         siApi = window.SI_API;
 
-        var sentKey = "clive-opening:" + equipment.id;
         var firstQuestion = pendingQuestion || openingQuestion;
         var shouldSendOpening = !sessionStorage.getItem(sentKey);
 
@@ -378,13 +378,33 @@
         setStatus("CLIve is ready. Continue in the open chat window.", true);
       };
 
-      var script = document.createElement("script");
-      script.src = "https://chat.socialintents.com/api/chat/socialintents.1.5.js#" + WIDGET_ID;
-      script.async = true;
-      script.onerror = function () {
-        setStatus("CLIve could not load. Use the button to open chat manually.", false);
-      };
-      document.body.appendChild(script);
+      var socialintents = window.socialintents = window.socialintents || [];
+      if (!socialintents.t) {
+        socialintents.t = true;
+        socialintents.load = function (settings) {
+          socialintents.settings = settings || {};
+          var script = document.createElement("script");
+          script.async = true;
+          script.src = "https://www.socialintents.com/api/chat/socialintents.1.5.js";
+          script.onerror = function () {
+            setStatus("CLIve could not load. Use the button to open chat manually.", false);
+          };
+          document.head.appendChild(script);
+        };
+      }
+
+      socialintents.load({
+        app_id: WIDGET_ID,
+        alignment: "right",
+        horizontal_padding: "25px",
+        name: "QR Visitor",
+        email: "",
+        group: "Studio-Gear",
+        question: sessionStorage.getItem(sentKey) ? "" : openingQuestion,
+        custom1: equipment.asset,
+        custom2: equipment.room,
+        custom3: equipment.id
+      });
 
       window.setTimeout(function () {
         if (!initialized) setStatus("CLIve is taking longer than expected to connect.", false);
