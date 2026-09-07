@@ -51,7 +51,7 @@
       display: flex;
       gap: 18px;
       justify-content: space-between;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
       padding: 20px 24px;
     }
     .context-strip p { margin: 0; }
@@ -62,24 +62,26 @@
     .context-equipment { font-family: "Roboto Slab", Georgia, serif; font-size: 20px; font-weight: 600; }
     .context-meta { color: var(--muted); font-size: 14px; text-align: right; }
     .person-link { color: var(--mc-link); display: inline-block; font-size: 13px; font-weight: 700; margin-top: 3px; }
-    .status-card { background: var(--mc-gray); border: 1px solid var(--mc-border); border-top: 5px solid var(--mc-blue); margin-bottom: 30px; padding: 18px 24px; text-align: center; }
-    .chat-kicker { color: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: .04em; margin: 0 0 8px; text-transform: uppercase; }
-    .status-message { align-items: flex-start; display: flex; font-size: 14px; gap: 10px; justify-content: center; margin: 18px 0 0; }
-    .status-dot { background: #db9d00; border-radius: 50%; flex: 0 0 auto; height: 10px; margin-top: 7px; width: 10px; }
-    .status-message.connected .status-dot { background: #16845b; }
-    .chat-button {
-      background: var(--mc-blue);
-      border: 2px solid var(--mc-blue);
-      color: var(--white);
-      cursor: pointer;
-      font-family: "Open Sans", Arial, sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      min-height: 58px;
-      padding: 14px 22px;
-      width: 100%;
-    }
-    .chat-button:hover { background: #173461; }
+
+    /* Centered inline chat */
+    .chat-panel { border: 2px solid var(--mc-blue); margin: 0 auto 14px; max-width: 720px; }
+    .chat-panel-header { align-items: center; background: var(--mc-blue); color: var(--white); display: flex; gap: 12px; justify-content: space-between; padding: 10px 18px; }
+    .chat-panel-header p { font-family: "Roboto Slab", Georgia, serif; font-size: 17px; font-weight: 600; margin: 0; }
+    .chat-panel-header a { color: #cfe3f7; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .chat-frame-wrap { background: var(--white); height: min(620px, 72vh); position: relative; }
+    .chat-frame-wrap iframe { border: 0; display: block; height: 100%; width: 100%; }
+    .chat-loading { color: var(--muted); font-size: 14px; left: 50%; position: absolute; text-align: center; top: 42%; transform: translate(-50%, -50%); width: 80%; z-index: 0; }
+    .chat-frame-wrap iframe { position: relative; z-index: 1; }
+    .chat-note { color: var(--muted); font-size: 13px; margin: 0 auto 44px; max-width: 720px; text-align: center; }
+
+    .example-section { background: #f8f8f8; margin-top: 30px; padding: 36px; }
+    .example-section > p { color: var(--muted); font-size: 14px; margin: -8px 0 0; }
+    .question-buttons { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+    .question-button { background: var(--white); border: 2px solid var(--mc-blue); color: var(--mc-blue); cursor: pointer; font-family: "Open Sans", Arial, sans-serif; font-size: 15px; font-weight: 700; min-height: 52px; padding: 11px 15px; text-align: left; }
+    .question-button:hover { background: var(--mc-blue); color: var(--white); }
+    .copy-toast { background: var(--mc-dark); border-radius: 4px; bottom: 24px; color: var(--white); font-size: 14px; left: 50%; opacity: 0; padding: 10px 18px; pointer-events: none; position: fixed; transform: translateX(-50%); transition: opacity .25s; z-index: 50; }
+    .copy-toast.show { opacity: 1; }
+
     .accordion { border: 1px solid var(--mc-border); margin-top: 24px; }
     .accordion summary { align-items: center; color: var(--mc-blue); cursor: pointer; display: flex; font-family: "Roboto Slab", Georgia, serif; font-size: 21px; font-weight: 700; justify-content: space-between; list-style: none; padding: 19px 22px; }
     .accordion summary::-webkit-details-marker { display: none; }
@@ -93,10 +95,6 @@
     .compact-steps li { margin-bottom: 12px; padding-left: 5px; }
     .compact-steps li:last-child { margin-bottom: 0; }
     .compact-steps strong { color: var(--mc-blue); }
-    .example-section { background: #f8f8f8; margin-top: 30px; padding: 36px; }
-    .question-buttons { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
-    .question-button { background: var(--white); border: 2px solid var(--mc-blue); color: var(--mc-blue); cursor: pointer; font-family: "Open Sans", Arial, sans-serif; font-size: 15px; font-weight: 700; min-height: 52px; padding: 11px 15px; text-align: left; }
-    .question-button:hover { background: var(--mc-blue); color: var(--white); }
     .help-section { border: 2px solid var(--mc-blue); display: grid; gap: 36px; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); margin-top: 52px; padding: 34px; }
     #human-help-heading { scroll-margin-top: 24px; }
     .help-section p { color: var(--muted); margin-bottom: 0; }
@@ -128,7 +126,8 @@
       main { padding-top: 32px; }
       .context-strip { align-items: flex-start; flex-direction: column; margin-bottom: 28px; }
       .context-meta { padding-left: 74px; text-align: left; }
-      .status-card { margin-left: -8px; margin-right: -8px; padding: 16px 18px; }
+      .chat-panel { margin-left: -12px; margin-right: -12px; }
+      .chat-frame-wrap { height: min(560px, 68vh); }
       .example-section, .help-section { margin-left: -24px; margin-right: -24px; padding: 27px 24px; }
       .question-buttons { grid-template-columns: 1fr; }
       .footer-main { grid-template-columns: 1fr; }
@@ -187,14 +186,21 @@
       </div>
     </section>
 
-    <aside class="status-card" aria-label="Chat controls">
-      <p class="chat-kicker">Chat opens automatically</p>
-      <button class="chat-button" id="open-assistant" type="button">Open or return to chat</button>
-      <p class="status-message" id="connection-status" role="status"><span class="status-dot" aria-hidden="true"></span><strong id="status-text">Connecting to CLIve…</strong></p>
-    </aside>
+    <section class="chat-panel" aria-label="Chat with CLIve">
+      <div class="chat-panel-header">
+        <p>Chat with CLIve</p>
+        <a id="open-new-tab" href="https://chat.socialintents.com/c/cliveqrbot" target="_blank" rel="noopener noreferrer">Open in a new tab ↗</a>
+      </div>
+      <div class="chat-frame-wrap">
+        <p class="chat-loading" id="chat-loading">Connecting to CLIve… If the chat does not appear, use “Open in a new tab” above.</p>
+        <iframe id="chat-frame" title="CLIve chat window" allow="clipboard-write"></iframe>
+      </div>
+    </section>
+    <p class="chat-note">CLIve starts with the equipment identified by this QR code. Type follow-up questions in the chat above.</p>
 
     <section class="example-section" aria-labelledby="examples-heading">
       <h2 id="examples-heading">Questions you can ask</h2>
+      <p>Tap a question to copy it, then paste it into the chat.</p>
       <div class="question-buttons">
         <button class="question-button" type="button">How do I set this equipment up?</button>
         <button class="question-button" type="button">What do these controls do?</button>
@@ -273,16 +279,18 @@
     </div>
   </footer>
 
+  <div class="copy-toast" id="copy-toast" role="status">Question copied — paste it into the chat.</div>
+
   <script>
     (function () {
       "use strict";
 
-      var WIDGET_ID = "2c9fa6c396f04ed90196f3ef06ce04f4";
+      // Standalone chat URL for the CLIve QR Bot widget. The /c/ page accepts
+      // si_name, si_question, si_custom1..6, si_group, si_params, etc. as URL
+      // parameters and injects them into the chat session, so no cross-frame
+      // JavaScript timing is involved.
       var STANDALONE_CHAT = "https://chat.socialintents.com/c/cliveqrbot";
       var params = new URLSearchParams(window.location.search);
-      var initialized = false;
-      var pendingQuestion = "";
-      var siApi = null;
 
       function clean(value, fallback, maxLength) {
         if (!value) return fallback;
@@ -300,116 +308,59 @@
         room: clean(params.get("room"), "Shields Photo Studio", 100),
         id: clean(params.get("id"), "prototype-001", 48)
       };
-      var openingQuestion = "Help me get started with the " + equipment.asset + ".";
+      var openingQuestion = "I scanned the QR code for the " + equipment.asset +
+        " in the " + equipment.room + ". Help me get started.";
       var sentKey = "clive-opening:" + equipment.id;
 
       document.getElementById("equipment-name").textContent = equipment.asset;
       document.getElementById("equipment-room").textContent = equipment.room;
 
-      function setStatus(message, connected) {
-        document.getElementById("status-text").textContent = message;
-        document.getElementById("connection-status").classList.toggle("connected", Boolean(connected));
+      var alreadySent = false;
+      try { alreadySent = Boolean(sessionStorage.getItem(sentKey)); } catch (err) {}
+
+      var chatParams = new URLSearchParams();
+      chatParams.set("si_name", "QR Visitor");
+      chatParams.set("si_custom1", equipment.asset);
+      chatParams.set("si_custom2", equipment.room);
+      chatParams.set("si_custom3", equipment.id);
+      chatParams.set("si_params", JSON.stringify([
+        { name: "Equipment ID", value: equipment.id },
+        { name: "Asset", value: equipment.asset },
+        { name: "Room", value: equipment.room },
+        { name: "Entry Point", value: "Equipment QR code" }
+      ]));
+      // Only auto-submit the opening question once per browser session so a
+      // page reload does not repeat it into the same chat.
+      if (!alreadySent) {
+        chatParams.set("si_question", openingQuestion);
+        try { sessionStorage.setItem(sentKey, "sent"); } catch (err) {}
       }
 
-      function openAssistant() {
-        if (siApi && typeof siApi.showPopup === "function") {
-          siApi.showPopup();
-        } else {
-          window.open(STANDALONE_CHAT, "_blank", "noopener,noreferrer");
-        }
-      }
+      var chatUrl = STANDALONE_CHAT + "?" + chatParams.toString();
+      document.getElementById("chat-frame").src = chatUrl;
+      document.getElementById("open-new-tab").href = chatUrl;
 
-      document.getElementById("open-assistant").addEventListener("click", openAssistant);
-
-      function sendQuestion(question) {
-        if (siApi && typeof siApi.sendMessage === "function") {
-          if (typeof siApi.showPopup === "function") siApi.showPopup();
-          if (!sessionStorage.getItem(sentKey)) {
-            sessionStorage.setItem(sentKey, "sent");
-          }
-          siApi.sendMessage(question);
-          setStatus("Your question was sent to CLIve.", true);
-          return;
-        }
-        pendingQuestion = question;
-        setStatus("Connecting to CLIve—your question will send when the chat is ready.", false);
+      var toast = document.getElementById("copy-toast");
+      var toastTimer = null;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2600);
       }
 
       document.querySelectorAll(".question-button").forEach(function (button) {
         button.addEventListener("click", function () {
-          sendQuestion(button.textContent.trim());
+          var question = button.textContent.trim();
+          function copied() { showToast("Question copied — paste it into the chat."); }
+          function failed() { showToast("Copy failed — type the question into the chat."); }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(question).then(copied, failed);
+          } else {
+            failed();
+          }
         });
       });
-
-      window.onSIApiReady = function () {
-        if (initialized || !window.SI_API) return;
-        initialized = true;
-        siApi = window.SI_API;
-
-        var firstQuestion = pendingQuestion || openingQuestion;
-        var shouldSendOpening = !sessionStorage.getItem(sentKey);
-
-        if (typeof siApi.addParams === "function") {
-          siApi.addParams([
-            { name: "Equipment ID", value: equipment.id },
-            { name: "Asset", value: equipment.asset },
-            { name: "Room", value: equipment.room },
-            { name: "Entry Point", value: "Equipment QR code" }
-          ]);
-        }
-        if (typeof siApi.setChatInfo === "function") {
-          siApi.setChatInfo(
-            "Visitor",
-            "",
-            null,
-            "",
-            shouldSendOpening ? firstQuestion : ""
-          );
-        }
-        if (typeof siApi.showPopup === "function") siApi.showPopup();
-        if (typeof siApi.startChat === "function") siApi.startChat();
-
-        if (shouldSendOpening) {
-          sessionStorage.setItem(sentKey, "sent");
-          pendingQuestion = "";
-        } else if (pendingQuestion && typeof siApi.sendMessage === "function") {
-          siApi.sendMessage(pendingQuestion);
-          pendingQuestion = "";
-        }
-
-        setStatus("CLIve is ready. Continue in the open chat window.", true);
-      };
-
-      var socialintents = window.socialintents = window.socialintents || [];
-      if (!socialintents.t) {
-        socialintents.t = true;
-        socialintents.load = function (settings) {
-          socialintents.settings = settings || {};
-          var script = document.createElement("script");
-          script.async = true;
-          script.src = "https://www.socialintents.com/api/chat/socialintents.1.5.js";
-          script.onerror = function () {
-            setStatus("CLIve could not load. Use the button to open chat manually.", false);
-          };
-          document.head.appendChild(script);
-        };
-      }
-
-      socialintents.load({
-        app_id: WIDGET_ID,
-        alignment: "right",
-        horizontal_padding: "25px",
-        name: "Visitor",
-        email: "",
-        question: sessionStorage.getItem(sentKey) ? "" : openingQuestion,
-        custom1: equipment.asset,
-        custom2: equipment.room,
-        custom3: equipment.id
-      });
-
-      window.setTimeout(function () {
-        if (!initialized) setStatus("CLIve is taking longer than expected to connect.", false);
-      }, 9000);
     }());
   </script>
 </body>
