@@ -346,14 +346,8 @@
         initialized = true;
         siApi = window.SI_API;
 
-        function dispatchOpeningQuestion() {
-          if (sessionStorage.getItem(sentKey) || typeof siApi.sendMessage !== "function") return;
-          var firstQuestion = pendingQuestion || openingQuestion;
-          siApi.sendMessage(firstQuestion);
-          sessionStorage.setItem(sentKey, "sent");
-          pendingQuestion = "";
-          setStatus("CLIve is ready. Continue in the open chat window.", true);
-        }
+        var firstQuestion = pendingQuestion || openingQuestion;
+        var shouldSendOpening = !sessionStorage.getItem(sentKey);
 
         if (typeof siApi.addParams === "function") {
           siApi.addParams([
@@ -369,16 +363,21 @@
             "",
             null,
             "",
-            ""
+            shouldSendOpening ? firstQuestion : ""
           );
         }
-        siApi.onChatOpened = function () {
-          window.setTimeout(dispatchOpeningQuestion, 350);
-        };
         if (typeof siApi.showPopup === "function") siApi.showPopup();
         if (typeof siApi.startChat === "function") siApi.startChat();
-        window.setTimeout(dispatchOpeningQuestion, 800);
-        setStatus("CLIve is open. Sending the equipment question…", false);
+
+        if (shouldSendOpening) {
+          sessionStorage.setItem(sentKey, "sent");
+          pendingQuestion = "";
+        } else if (pendingQuestion && typeof siApi.sendMessage === "function") {
+          siApi.sendMessage(pendingQuestion);
+          pendingQuestion = "";
+        }
+
+        setStatus("CLIve is ready. Continue in the open chat window.", true);
       };
 
       var socialintents = window.socialintents = window.socialintents || [];
@@ -402,6 +401,7 @@
         horizontal_padding: "25px",
         name: "Visitor",
         email: "",
+        question: sessionStorage.getItem(sentKey) ? "" : openingQuestion,
         custom1: equipment.asset,
         custom2: equipment.room,
         custom3: equipment.id
