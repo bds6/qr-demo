@@ -19,6 +19,7 @@
       --text: #141414;
       --muted: #525a64;
       --white: #fff;
+      --chat-rail-width: 510px;
     }
     * { box-sizing: border-box; }
     html { background: var(--white); }
@@ -103,6 +104,8 @@
     .help-links { display: flex; flex-direction: column; justify-content: center; }
     .help-links a { border-bottom: 1px solid #c7ced7; color: var(--mc-link); font-weight: 700; padding: 9px 0; }
     .notice { color: #606873; font-size: 13px; margin: 28px 0 0; }
+    .prototype-note { color: #606873; font-size: 12px; margin: 16px 0 0; }
+    .chat-rail-backdrop { display: none; }
     .site-footer { background: var(--mc-blue); color: var(--white); }
     .footer-main { display: grid; gap: 42px; grid-template-columns: 1.2fr repeat(3, 1fr); margin: auto; max-width: 1200px; padding: 52px 24px 42px; }
     .footer-logo { max-width: 210px; }
@@ -113,6 +116,33 @@
     .footer-main a { font-size: 13px; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,.32); font-size: 11px; margin: auto; max-width: 1200px; padding: 18px 24px 28px; }
     .footer-bottom p { margin: 5px 0; }
+    @media (min-width: 1180px) {
+      body { padding-right: var(--chat-rail-width); }
+      .chat-rail-backdrop {
+        background: linear-gradient(180deg, #f5f8fb 0%, #eef3f7 100%);
+        border-left: 1px solid #cbd5df;
+        bottom: 0;
+        display: block;
+        padding: 28px 30px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: var(--chat-rail-width);
+        z-index: 0;
+      }
+      .chat-rail-backdrop::before {
+        background: var(--mc-blue);
+        content: "";
+        height: 5px;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .chat-rail-label { color: var(--mc-blue); font-family: "Roboto Slab", Georgia, serif; font-size: 22px; font-weight: 700; margin: 0; }
+      .chat-rail-copy { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 5px 0 0; max-width: 340px; }
+      .utility-bar, .site-header, .page-title, main, .site-footer { position: relative; z-index: 1; }
+    }
     @media (max-width: 850px) {
       .header-inner { align-items: flex-start; min-height: auto; }
       .primary-nav { display: none; }
@@ -136,6 +166,10 @@
   </style>
 </head>
 <body>
+  <aside class="chat-rail-backdrop" aria-hidden="true">
+    <p class="chat-rail-label">CLIve assistant</p>
+    <p class="chat-rail-copy">The chat stays in this dedicated area while equipment details and support options remain visible.</p>
+  </aside>
   <div class="utility-bar">
     <div class="utility-inner">
       <a href="tel:18662667496">☎ 866-266-7496</a>
@@ -203,6 +237,7 @@
         <button class="question-button" type="button">How should I reset it when finished?</button>
         <button class="question-button" type="button">Can I speak with a consultant?</button>
       </div>
+      <p class="prototype-note">Prototype note: suggested-question buttons use Social Intents' documented message API. Automatic submission is still being verified with Social Intents.</p>
     </section>
 
     <details class="accordion">
@@ -328,7 +363,7 @@
             sessionStorage.setItem(sentKey, "sent");
           }
           siApi.sendMessage(question);
-          setStatus("Your question was sent to CLIve.", true);
+          setStatus("CLIve is open with your selected prompt. Automatic submission is being verified.", true);
           return;
         }
         pendingQuestion = question;
