@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Equipment Help</title></head>
+<body>
+  <h1>Equipment Help Demo</h1>
+
+  <script>
+  function onSIApiReady () {
+    var qs    = new URLSearchParams(location.search);
+    var room  = qs.get('room')  || 'Unknown Room';
+    var asset = qs.get('asset') || 'Unknown Asset';
+
+    // 1. tag the chat so the bot sees the tokens
+    SI_API.addParams([
+      {name: 'Room',  value: room},
+      {name: 'Asset', value: asset}
+    ]);
+
+    SI_API.setChatInfo(
+      'QR Visitor',
+      '',
+      null,
+      'Studio-Gear',
+      'Hi! I need help with the ' + asset + '.'
+    );
+
+    // 3. open the widget
+    SI_API.showPopup();
+
+    // 4. start the chat session immediately
+    if (typeof SI_API.startChat === 'function') {
+      SI_API.startChat();
+    }
+
+    // 5. send the first message so ChatGPT replies
+    if (typeof SI_API.sendMessage === 'function') {
+      SI_API.sendMessage(
+        'Hi! I need help with the ' + asset + '.'
+      );
+    }
+  }
+  </script>
+<script>!function(){var e=window,i=document,t="socialintents",u=e[t]=e[t]||[];if(u.t) return console.error("Duplicate Social Intents code snippet.");
+        u.t=!0;u.load=function(s){u.settings=s||{};var c=i.createElement("script");c.async=!0;
+        c.src="https://www.socialintents.com/api/chat/socialintents.1.5.js";i.getElementsByTagName("script")[0].parentNode.insertBefore(c,null);};}();
+        socialintents.load({app_id: "2c9fa27b96832692019683363359000b",
+        alignment: "right",
+        horizontal_padding: "25px"});
+</script>
+</body>
+</html>

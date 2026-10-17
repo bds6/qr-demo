@@ -1,0 +1,247 @@
+PENN STATE RECORDING STUDIO EQUIPMENT GUIDE - PROOF OF CONCEPT
+
+========================================
+ELGATO STREAM DECK 15 KEY (DECK-SA-001)
+========================================
+
+IDENTIFICATION:
+- Equipment Type: Programmable Control Panel
+- Room: Studio A
+- Campus: University Park
+- Model: Elgato Stream Deck (15 Key)
+
+QUICK START:
+1. Connect USB cable directly to computer (not through hub)
+2. Download Stream Deck software from elgato.com/downloads
+3. Software auto-detects the device
+4. Drag actions from right panel to keys on left
+5. Press any key to trigger its action
+
+WHAT IS IT?
+The Stream Deck is a customizable control panel with 15 LCD buttons. Each button can launch apps, control recording software, adjust audio, or trigger shortcuts. Think of it as 15 programmable buttons for your studio workflow.
+
+COMMON QUESTIONS:
+
+Q: How do I turn on the Stream Deck?
+A: No power button needed. It turns on automatically when you plug the USB cable into your computer. Keys will light up when ready.
+
+Q: The Stream Deck isn't responding
+A: Check these in order: (1) USB cable firmly connected? (2) Connected directly to computer not hub? (3) Stream Deck software running? (4) Try unplugging and replugging USB (5) Restart software
+
+Q: What do the keys do?
+A: Each studio has different programming. Look at the icon on each key. Common functions: Start/Stop Recording, Mute Microphone, Switch Cameras, Launch Software, Adjust Audio.
+
+Q: A key doesn't work when I press it
+A: Make sure Stream Deck software is running. The key might be in a folder. Check with studio staff about specific programming.
+
+Q: Can I customize the buttons?
+A: Ask studio staff first. If authorized: Open Stream Deck software, drag actions onto keys, click key to customize icon.
+
+TROUBLESHOOTING:
+- Not detected: Unplug USB, wait 5 seconds, plug back in. Try different USB port. Restart software.
+- Keys dim: Normal when idle. Touch any key to wake up.
+- Wrong action happens: You might be in a folder - look for back arrow to return.
+
+SAFETY:
+- Keep liquids away
+- Light touch only - don't press hard
+- Don't disconnect during recording
+- Clean with soft dry cloth
+
+
+=====================================================
+RODE WIRELESS GO II LAVALIER MICROPHONES (LAV-SA-001)
+=====================================================
+
+IDENTIFICATION:
+- Equipment Type: Dual-Channel Wireless Microphone System
+- Room: Studio A
+- Campus: University Park
+- Model: Rode Wireless GO II
+- Includes: 2 Transmitters, 1 Receiver, Cables
+
+QUICK START:
+1. Turn on receiver - press and hold power button 3 seconds
+2. Turn on transmitters - press and hold power buttons 3 seconds
+3. Transmitters auto-pair to receiver
+4. Connect receiver to camera (SC5 cable) or computer (USB cable)
+5. Clip transmitter 6-8 inches below chin
+6. Adjust gain on receiver until levels look good (70-80%)
+
+WHAT IS IT?
+Wireless microphone system for recording audio without cables. Each transmitter has built-in mic and can connect external lavalier. Records two people simultaneously from up to 200 meters away.
+
+COMMON QUESTIONS:
+
+Q: How do I turn it on?
+A: Press and hold power button on each device for 3 seconds. Already paired, so they connect automatically.
+
+Q: Which cable do I use?
+A: Cameras: SC5 cable (black plugs). Computers: USB-C cable. iPhone Lightning: SC15 or SC19. Phone USB-C: SC16.
+
+Q: No audio / not recording
+A: Check: (1) Transmitter and receiver on? (2) Good signal on receiver screen? (3) Cable connected firmly? (4) Mute icon showing - unmute if yes (5) Camera/computer set to use Wireless GO II? (6) Gain too low?
+
+Q: Audio cutting out or choppy
+A: Check signal strength - may be too far away. Remove obstacles between transmitter and receiver. Move away from Wi-Fi routers. Max range 200m outdoors, less indoors.
+
+Q: Sound distorted or static
+A: Lower the gain on receiver. Don't put transmitter too close to loud sounds. Check cables fully connected.
+
+Q: How far can I go?
+A: Up to 200 meters (650 feet) in open space. Indoors: 50-100 meters typically.
+
+Q: Battery life?
+A: About 7 hours on full charge. Check battery on receiver screen.
+
+Q: How to charge?
+A: Use USB-C cables included. Full charge takes 2 hours. Can use while charging.
+
+Q: Use both transmitters at once?
+A: Yes! That's dual channel. Record two people simultaneously.
+
+Q: Built-in mic or external lavalier?
+A: Built-in: Easier, clip transmitter to collar. External lavalier: More discreet, better audio, clip transmitter to belt.
+
+TROUBLESHOOTING:
+- No signal: Turn off transmitter, wait 5 seconds, turn on. Check battery. Verify in range.
+- One works, other doesn't: Check battery on non-working one. Use pair button to cycle channels. Turn off and on.
+- Audio only in one ear: Normal - system records mono. Each transmitter to separate channel.
+
+SAFETY:
+- Charge after each use
+- Store in case when not in use
+- Don't drop or expose to water
+- Don't leave in sun or hot cars
+- Use windshields outdoors
+
+
+======================================
+iMAC FOR EDITING (IMAC-SA-001)
+======================================
+
+IDENTIFICATION:
+- Equipment Type: Desktop Computer
+- Room: Studio A
+- Campus: University Park
+- Model: Apple iMac
+- Operating System: macOS
+- Purpose: Video/audio editing, photo editing, studio control
+
+QUICK START:
+1. Press power button on back (lower right corner)
+2. Wait for startup sound and Apple logo (30-60 seconds)
+3. Log in with credentials from studio staff
+4. Desktop appears - ready to work
+5. Shut down: Click Apple menu (top left) > Shut Down
+
+WHAT IS IT?
+All-in-one desktop computer by Apple. Computer and screen in one unit. Designed for creative work like video, audio, photo editing. Runs macOS (different from Windows but user-friendly).
+
+COMMON QUESTIONS:
+
+Q: How do I turn on the iMac?
+A: Power button is on back, lower right when facing screen. Press once. You'll hear chime and see Apple logo.
+
+Q: Where's the power button?
+A: Reach around back of iMac, lower right corner. Feel for circular button.
+
+Q: Can't log in / forgot password
+A: Contact studio staff. Passwords cannot be reset by users for security.
+
+Q: How do I shut down?
+A: Click Apple logo top-left, then Shut Down. Wait for screen to go dark before leaving.
+
+Q: Shut Down vs Sleep?
+A: Sleep: Quick, uses minimal power, wakes instantly. Shut Down: Complete power off, takes longer to restart, use at end of day.
+
+Q: Computer froze / app won't close
+A: Press Command + Option + Escape. Select frozen app. Click Force Quit. If whole system frozen, hold power button 5 seconds (last resort).
+
+Q: Adjust volume?
+A: Use F11 (quieter) and F12 (louder) keys. Or click speaker icon in menu bar (top right). Or System Preferences > Sound.
+
+Q: Connect to Wi-Fi?
+A: Click Wi-Fi icon (top right), select network, enter password. Studio Wi-Fi credentials posted near computer.
+
+Q: Where do I save my work?
+A: Desktop (easy to find), Documents folder (better organization), or External drive (for large video projects - ALWAYS use external). IMPORTANT: Studio computers may be reset - ALWAYS save to external drive or cloud!
+
+Q: How to safely remove USB drive?
+A: Right-click drive icon on desktop, select Eject, wait for icon to disappear, then unplug. Never just pull it out - you'll lose work!
+
+Q: Screen too bright/dim?
+A: Press F1 (dimmer) or F2 (brighter). Or System Preferences > Displays > Brightness.
+
+Q: How to take screenshot?
+A: Entire screen: Command + Shift + 3. Selected area: Command + Shift + 4 then drag. Saves to Desktop.
+
+Q: What editing apps are available?
+A: Check with studio staff. Common: Final Cut Pro, Adobe Premiere Pro, DaVinci Resolve, Logic Pro, GarageBand, Audacity, iMovie.
+
+Q: Keyboard shortcuts not working?
+A: Mac uses Command instead of Control. Copy: Command + C. Paste: Command + V. Undo: Command + Z. Save: Command + S. Quit: Command + Q.
+
+Q: Switch between open apps?
+A: Press Command + Tab, hold Command, press Tab repeatedly to cycle.
+
+Q: Mouse/keyboard not responding?
+A: If wireless Apple accessories: Check on/off switch (bottom of mouse, right side of keyboard). Make sure charged (plug in USB). Try turning off and on.
+
+ESSENTIAL KEYBOARD SHORTCUTS:
+Command + C = Copy
+Command + V = Paste
+Command + Z = Undo
+Command + S = Save
+Command + Q = Quit app
+Command + Spacebar = Spotlight search (fastest way to find/open anything)
+Command + Tab = Switch apps
+
+TROUBLESHOOTING:
+- Won't turn on: Check power cable connected to iMac and wall. Try different outlet. Wait 10 seconds, try again. Contact staff if still broken.
+- Running slow: Quit apps not using (Command + Q). Restart computer. Check free storage space.
+- Can't find saved file: Use Spotlight (Command + Spacebar), type filename. Check Desktop, Documents, Downloads. Check external drive if working on video.
+- External drive not showing: Try different USB port. Check if drive needs power adapter. Unplug and replug. Restart computer.
+
+SAFETY:
+- No food or drinks near iMac
+- Don't block air vents on back
+- Don't move while on
+- Always shut down or sleep before leaving
+- Never force power off unless absolutely necessary
+- Always eject drives before unplugging
+- Report hardware problems to staff immediately
+
+
+=====================
+GENERAL STUDIO TIPS
+=====================
+
+BEFORE YOUR SESSION:
+- All equipment on and functioning
+- Test audio levels before recording
+- Have external storage ready
+- Know what software you'll use
+
+DURING YOUR SESSION:
+- Save frequently (Command + S on Mac)
+- Keep drinks/food away from equipment
+- If something doesn't work, ask for help - don't force it
+- Monitor audio levels to avoid distortion
+
+AFTER YOUR SESSION:
+- Save all work to external drive or cloud
+- Properly eject all external drives
+- Close all applications
+- Put equipment back where you found it
+- Clean up workspace
+- Turn off or sleep equipment as instructed
+
+GETTING HELP:
+- Scan QR codes on equipment for specific help
+- Contact studio staff during business hours
+- Document equipment problems and report to staff
+
+---
+Document Version 1.0 - Proof of Concept
+Penn State Commonwealth Campuses Recording Studios
